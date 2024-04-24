@@ -69,16 +69,16 @@ type ApiPostMethods = 'POST' | 'PUT' | 'DELETE'
 Класс реализует интерфейс `Events` и использует типы `EmitterEvent`, `Subscriber` и `EventName`.
 
 ```typescript
-type TEventName = string | RegExp;
+type EventName = string | RegExp;
 
-type TSubscriber = Function;
+type Subscriber = Function;
 
-type TEmitterEvent = {
+type EmitterEvent = {
 	eventName: string;
 	data: unknown;
 };
 
-interface IEvents {
+interface Events {
 	on<T extends object>(event: TEventName, callback: (data: T) => void): void;
 	emit<T extends object>(event: string, data?: T): void;
 	trigger<T extends object>(
@@ -90,7 +90,7 @@ interface IEvents {
 
 ### Базовый абстрактный класс Model
 
-Этот абстрактный класс определяет конструктор для всех моделей приложения. Он принимает аргументы, которые соответствуют частям данных дженерика, связанного с интерфейсом модели, и экземпляр брокера событий типа `IEvents`. Кроме того, класс содержит метод `emitChanges`, который использует `EventEmitter` для уведомления о любых изменениях в данных.
+Этот абстрактный класс определяет конструктор для всех моделей приложения. Он принимает аргументы, которые соответствуют частям данных дженерика, связанного с интерфейсом модели, и экземпляр брокера событий типа `Events`. Кроме того, класс содержит метод `emitChanges`, который использует `EventEmitter` для уведомления о любых изменениях в данных.
 
 ### Базовый абстрактный класс View
 
