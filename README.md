@@ -138,7 +138,8 @@ trigger<T extends object>(eventName: string, context?: Partial<T>): void {}
 
 Имеет метод 
 ```typescript
-emitChanges(event: string, payload?: object) - уведомляет подписчиков об изменениях модели и передаёт данные payload, для этого используется EventEmitter.
+// Уведомляет подписчиков об изменениях в модели и передает данные payload с помощью EventEmitter.
+emitChanges(event: string, payload?: object)
 ```
 
 ### Базовый абстрактный класс View
