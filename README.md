@@ -57,18 +57,6 @@ yarn build
 
 ## Базовый код
 
-# 1. Базовый класс API
+### 1. Базовый класс API
 
 Осуществляет основные операции по обмену данными с серверным API, включая получение и отправку информации.
-
-```typescript
-interface IProduct {
-	id: string;
-	description: string;
-	image: string;
-	title: string;
-	category: string;
-	price: number | null;
-}
-```
-
