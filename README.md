@@ -68,12 +68,12 @@ interface IProduct {
 }
 ```
 
-Для описания возможных способов оплаты заказа используется тип TOrderPayment:
+Для определения возможных способов оплаты заказа используется тип `TOrderPayment`.
 
 ```typescript
 type TOrderPayment = 'cash' | 'card';
 ```
-Для описания заказа используется интерфейс IOrder:
+Интерфейс `IOrder` используется для описания заказа.
 
 ```typescript
 interface IOrder {
@@ -84,7 +84,7 @@ interface IOrder {
 	phone: string;
 }
 ```
-При оформлении заказа, формируется специальный объект для работы с API типа TOrderInvoice:
+В процессе оформления заказа создаётся специальный объект типа `TOrderInvoice`, который используется для взаимодействия с API.
 
 ```typescript
 type TOrderInvoice = Omit<IOrder, 'items'> & {
@@ -93,7 +93,7 @@ type TOrderInvoice = Omit<IOrder, 'items'> & {
 };
 ```
 
-Для отслеживания текущего этапа заказа используется тип TOrderStep:
+Для отслеживания текущего этапа заказа используется тип `TOrderStep`:
 
 ```typescript
 type TOrderStep = 'shipment' | 'contacts';
