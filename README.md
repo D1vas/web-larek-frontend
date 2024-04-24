@@ -118,14 +118,14 @@ on<T extends object>(eventName: EventName, callback: (event: T) => void): void {
 // Отписка от события
 off(eventName: EventName, callback: Subscriber): void {}
 
-// Уведомление подписчиков о наступлении события
-emit<T extends object>(eventName: string, data?: T): void {}
-
 // Подписка на все события
 onAll(callback: (event: EmitterEvent) => void): void {}
 
 // Отписка от всех событий
 offAll(): void {}
+
+// Уведомление подписчиков о наступлении события
+emit<T extends object>(eventName: string, data?: T): void {}
 
 // Делает коллбек триггером, генерирующим событие при вызове
 trigger<T extends object>(eventName: string, context?: Partial<T>): void {}
