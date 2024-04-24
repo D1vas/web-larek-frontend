@@ -60,10 +60,33 @@ yarn build
 ### Базовый класс API
 
 Осуществляет основные операции по обмену данными с серверным API, включая получение и отправку информации.
-
+```typescript
+type ApiPostMethods = 'POST' | 'PUT' | 'DELETE'
+```
 ### Базовый класс EventEmitter
 
 Реализует управление событиями, включая добавление и удаление обработчиков событий, а также их активацию при наступлении событий.
+Класс реализует интерфейс `Events` и использует типы `EmitterEvent`, `Subscriber` и `EventName`.
+
+```typescript
+type TEventName = string | RegExp;
+
+type TSubscriber = Function;
+
+type TEmitterEvent = {
+	eventName: string;
+	data: unknown;
+};
+
+interface IEvents {
+	on<T extends object>(event: TEventName, callback: (data: T) => void): void;
+	emit<T extends object>(event: string, data?: T): void;
+	trigger<T extends object>(
+		event: string,
+		context?: Partial<T>
+	): (data: T) => void;
+}
+```
 
 ### Базовый абстрактный класс Model
 
