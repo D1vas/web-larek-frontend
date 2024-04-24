@@ -110,26 +110,26 @@ type ApiPostMethods = 'POST' | 'PUT' | 'DELETE'
 ### Базовый класс EventEmitter
 
 Реализует управление событиями, включая добавление и удаление обработчиков событий, а также их активацию при наступлении событий.
-Класс реализует интерфейс `IEvents` и использует типы  `TSubscriber`, `TEmitterEvent` и `TEventName`.
 
 ```typescript
-type TEventName = string | RegExp;
+// Подписка на событие
+on<T extends object>(eventName: EventName, callback: (event: T) => void): void {}
 
-type TSubscriber = Function;
+// Отписка от события
+off(eventName: EventName, callback: Subscriber): void {}
 
-type TEmitterEvent = {
-	eventName: string;
-	data: unknown;
-};
+// Уведомление подписчиков о наступлении события
+emit<T extends object>(eventName: string, data?: T): void {}
 
-interface IEvents {
-	on<T extends object>(event: TEventName, callback: (data: T) => void): void;
-	emit<T extends object>(event: string, data?: T): void;
-	trigger<T extends object>(
-		event: string,
-		context?: Partial<T>
-	): (data: T) => void;
-}
+// Подписка на все события
+onAll(callback: (event: EmitterEvent) => void): void {}
+
+// Отписка от всех событий
+offAll(): void {}
+
+// Делает коллбек триггером, генерирующим событие при вызове
+trigger<T extends object>(eventName: string, context?: Partial<T>): void {}
+
 ```
 
 ### Базовый абстрактный класс Model
