@@ -51,7 +51,7 @@ yarn build
 2. View - отвечает за отображение информации пользователю и интерактив с пользователем.
 3. Presenter - слой, который связывает Model и View. Обрабатывает события от View, вызывает изменения в Model и обновляет View.
 
-Для описания товара используется интерфейс IProduct:
+Интерфейс `IProduct` нужен для описания товара
 
 ```typescript
 interface IProduct {
@@ -64,35 +64,61 @@ interface IProduct {
 }
 ```
 
+Интерфейс `IAppState` необходим для описывания состояния приложения
+
+```typescript
+interface IAppState {
+	catalog: IProduct;
+	basket: string[];
+	preview: string | null;
+	order: IOrder | null;
+}
+```
+
+Интерфейс `IOrderForm` используется для описания формы заказа
+
+```typescript
+interface IOrderForm {
+	email: string;
+	phone: string;
+	address: string;
+	payment: TOrderPayment;
+}
+```
+
+Интерфейс `IOrder` расширяет `IOrderForm`
+```typescript
+interface IOrder extends IOrderForm {
+	items: string[];
+	total: number;
+}
+```
+
+Для описания интерфейса результата заказа используется `IOrderResult`
+
+```typescript
+interface IOrderResult {
+	id: string;
+	total: number;
+}
+```
+
 Для определения возможных способов оплаты заказа используется тип `TOrderPayment`.
 
 ```typescript
 type TOrderPayment = 'cash' | 'card';
 ```
-Интерфейс `IOrder` используется для описания заказа.
+
+Тип использующийся для валидации формы заказа `FormErrors`
 
 ```typescript
-interface IOrder {
-	items: IProduct[];
-	payment: TOrderPayment;
-	address: string;
-	email: string;
-	phone: string;
-}
-```
-В процессе оформления заказа создаётся специальный объект типа `TOrderInvoice`, который используется для взаимодействия с API.
-
-```typescript
-type TOrderInvoice = Omit<IOrder, 'items'> & {
-	items: string[];
-	total: number;
-};
+type FormErrors = Partial<Record<keyof IOrder, string>>;
 ```
 
-Для отслеживания текущего этапа заказа используется тип `TOrderStep`:
+Для описания элементов корзины используеся тип `IBasketItem`
 
 ```typescript
-type TOrderStep = 'shipment' | 'contacts';
+type IBasketItem = Pick<IProduct, 'id' | 'title' | 'price'>;
 ```
 
 ##   Базовый код
