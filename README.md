@@ -46,89 +46,27 @@ yarn build
 
 Ниже приведено описание общей архитектуры приложения, списка событий и данных, передаваемых в рамках каждого события.
 
-Основные компоненты:
-1. Model - отвечает за управление данными (загрузка, изменение, сохранение).
-2. View - отвечает за отображение информации пользователю и интерактив с пользователем.
-3. Presenter - слой, который связывает Model и View. Обрабатывает события от View, вызывает изменения в Model и обновляет View.
-
-Интерфейс `IProduct` нужен для описания товара
-
-```typescript
-interface IProduct {
-	id: string;
-	description: string;
-	image: string;
-	title: string;
-	category: string;
-	price: number | null;
-}
-```
-
-Интерфейс `IAppState` необходим для описывания состояния приложения
-
-```typescript
-interface IAppState {
-	catalog: IProduct;
-	basket: string[];
-	preview: string | null;
-	order: IOrder | null;
-}
-```
-
-Интерфейс `IOrderForm` используется для описания формы заказа
-
-```typescript
-interface IOrderForm {
-	email: string;
-	phone: string;
-	address: string;
-	payment: TOrderPayment;
-}
-```
-
-Интерфейс `IOrder` расширяет `IOrderForm`
-```typescript
-interface IOrder extends IOrderForm {
-	items: string[];
-	total: number;
-}
-```
-
-Для описания интерфейса результата заказа используется `IOrderResult`
-
-```typescript
-interface IOrderResult {
-	id: string;
-	total: number;
-}
-```
-
-Для определения возможных способов оплаты заказа используется тип `TOrderPayment`.
-
-```typescript
-type TOrderPayment = 'cash' | 'card';
-```
-
-Тип использующийся для валидации формы заказа `FormErrors`
-
-```typescript
-type FormErrors = Partial<Record<keyof IOrder, string>>;
-```
-
-Для описания элементов корзины используеся тип `IBasketItem`
-
-```typescript
-type IBasketItem = Pick<IProduct, 'id' | 'title' | 'price'>;
-```
-
 ##   Базовый код
 
 ### Базовый класс API
 
-Осуществляет основные операции по обмену данными с серверным API, включая получение и отправку информации.
-```typescript
-type ApiPostMethods = 'POST' | 'PUT' | 'DELETE'
-```
+Этот класс предоставляет базовые методы для работы с API и позволяет легко взаимодействовать с удаленным сервером, отправлять запросы и получать ответы, а также обрабатывать ошибки.
+#### Конструктор:
+Принимает базовый URL для API `baseUrl` и опциональные параметры `options` для настройки запросов.
+Устанавливает базовый URL и опции запроса.
+
+#### Поля:
+`baseUrl: string;` - базовый url на api.
+`options: RequestInit` - объект с настройками для формирования запроса.
+
+#### Методы:
+`handleResponse`
+Обрабатывает ответы от сервера, разрешая Promise с данными или выбрасывая ошибку.
+`get`
+Выполняет GET-запрос к API по указанному URI.
+`post`
+Выполняет POST-запрос к API по указанному URI с переданными данными.
+
 ### Базовый класс EventEmitter
 
 Реализует управление событиями, включая добавление и удаление обработчиков событий, а также их активацию при наступлении событий.
@@ -164,19 +102,7 @@ trigger<T extends object>(eventName: string, context?: Partial<T>): void {}
 emitChanges(event: string, payload?: object)
 ```
 
-### Базовый абстрактный класс View
-
-Предоставляет базовый функционал для управления отображением элементов на веб-странице, включая методы для скрытия и отображения HTML-элементов.
-
-Имеет методы
-```typescript
-// Скрывает переданный html элемент(element)
-setHidden(element: HTMLElement)
-// Отображает переданный html элемент(element)
-setVisible(element: HTMLElement) 
-```
-
-##   Компоненты модели данных
+##  Компоненты модели данных
 
 ### Класс ShopAPI
 
@@ -290,6 +216,81 @@ set counter(value: string): void {}
 lockScroll(state: boolean): void {}
 ```
 
+
+
+Интерфейс `IProduct` нужен для описания товара
+
+```typescript
+interface IProduct {
+	id: string;
+	description: string;
+	image: string;
+	title: string;
+	category: string;
+	price: number | null;
+}
+```
+
+Интерфейс `IAppState` необходим для описывания состояния приложения
+
+```typescript
+interface IAppState {
+	catalog: IProduct;
+	basket: string[];
+	preview: string | null;
+	order: IOrder | null;
+}
+```
+
+Интерфейс `IOrderForm` используется для описания формы заказа
+
+```typescript
+interface IOrderForm {
+	email: string;
+	phone: string;
+	address: string;
+	payment: TOrderPayment;
+}
+```
+
+Интерфейс `IOrder` расширяет `IOrderForm`
+```typescript
+interface IOrder extends IOrderForm {
+	items: string[];
+	total: number;
+}
+```
+
+Для описания интерфейса результата заказа используется `IOrderResult`
+
+```typescript
+interface IOrderResult {
+	id: string;
+	total: number;
+}
+```
+
+Для определения возможных способов оплаты заказа используется тип `TOrderPayment`.
+
+```typescript
+type TOrderPayment = 'cash' | 'card';
+```
+
+Тип использующийся для валидации формы заказа `FormErrors`
+
+```typescript
+type FormErrors = Partial<Record<keyof IOrder, string>>;
+```
+
+Для описания элементов корзины используеся тип `IBasketItem`
+
+```typescript
+type IBasketItem = Pick<IProduct, 'id' | 'title' | 'price'>;
+```
+
+```typescript
+type ApiPostMethods = 'POST' | 'PUT' | 'DELETE'
+```
 
 
 
