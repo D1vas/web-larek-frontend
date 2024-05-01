@@ -48,7 +48,7 @@ yarn build
 
 ##   Базовый код
 
-### Базовый класс API
+### 1. Базовый класс API
 
 Этот класс предоставляет базовые методы для работы с API и позволяет легко взаимодействовать с удаленным сервером, отправлять запросы и получать ответы, а также обрабатывать ошибки.
 
@@ -65,7 +65,7 @@ yarn build
 `get` - выполняет GET-запрос к API по указанному URI.
 `post` - выполняет POST-запрос к API по указанному URI с переданными данными.
 
-### Базовый класс EventEmitter
+### 2. Базовый класс EventEmitter
 
 Реализует управление событиями, включая добавление и удаление обработчиков событий, а также их активацию при наступлении событий.
 
@@ -81,7 +81,7 @@ yarn build
 `trigger<T extends object>(eventName: string, context?: Partial<T>): (event: object) => void` - создает коллбек триггер, генерирующий событие при вызове.
 
 
-### Базовый абстрактный класс Model
+### 3. Базовый абстрактный класс Model
 
 Абстрактный класс для создания моделей данных с возможностью управления данными и оповещения других компонентов о изменениях в этих моделях.
 
@@ -97,7 +97,7 @@ yarn build
 
 ##  Компоненты модели данных
 
-### Класс ShopAPI
+### 1. Класс ShopAPI
 
 Класс `ShopApi` расширяет базовый класс `Api` и предоставляет методы для работы с API магазина, такие как получение всех продуктов, добавление заказа и получение продукта по его id.
 
@@ -114,7 +114,7 @@ yarn build
 `addOrder(order: IOrder)` Отправляет запрос на добавление заказа в API магазина с данными заказа order и возвращает Promise с объектом ISuccessOrder, представляющим успешно добавленный заказ.
 `getProductById(id: string)` Получает продукт по его идентификатору из API магазина и возвращает Promise с объектом IProduct.
 
-### Класс AppData
+### 2. Класс AppData
 
 #### Конструктор
 Принимает объект events интерфейса `IEvents` для работы с событиями.
@@ -144,7 +144,7 @@ yarn build
 `getCurrentOrder(): IOrder` Возвращает текущий заказ.
 `getBasketTotalPrice(): number` Возвращает общую стоимость продуктов в корзине.
 
-### Класс Basket
+### 3. Класс Basket
 
 Класс для отображения корзины, содержащий набор позиций корзины и их общую сумму, а также предоставляющий возможность выполнения действий при клике на кнопку оформления.
 
@@ -162,7 +162,7 @@ yarn build
 `set price(price: number)` Устанавливает цену корзины и блокирует/разблокирует кнопку `"submit"`.
 `set cards(elements: HTMLElement[])` Устанавливает элементы товаров в корзине.
 
-### Класс Order
+### 4. Класс Order
 Этот класс представляет модель для заказа, используется для хранения и обработки данных о заказе.
 
 #### Конструктор
@@ -184,7 +184,7 @@ yarn build
 
 
 
-### Класс Modal
+### 5. Класс Modal
 Наследуется от базового класса `Model`. Отвечает за отображение модального окна и действий над ним.
 
 #### Конструктор
@@ -199,7 +199,7 @@ yarn build
 `open(): void` - открывает модальное окно.
 `render(obj: HTMLElement): HTMLElement` - заменяет содержимое внутреннего контента модального окна переданным элементом.
 
-### Класс Contacts
+### 6. Класс Contacts
 Создание графического интерфейса для оформления заказа, включая поля для ввода контактной информации, такой как номер телефона и электронная почта
 
 #### Конструктор
@@ -214,7 +214,7 @@ yarn build
 #### Методы:
 `updateSubmitButtonState(): void` - обновляет состояние кнопки отправки в зависимости от введенных значений в поля электронной почты и телефона.
 
-### Класс Page
+### 7. Класс Page
 Представляет основную страницы приложения.
 
 #### Конструктор
@@ -233,11 +233,11 @@ yarn build
 
 
 
-### Класс SuccessOrder
+### 8. Класс SuccessOrder
 Расширяет абстрактный класс `Model` и представляет компонент успешного заказа на странице. 
 
 #### Конструктор
-Конструктор принимает HTML-шаблон и объект событий. В конструкторе вызывается конструктор родительского класса `Model` с клонированным шаблоном и объектом событий.
+Принимает HTML-шаблон и объект событий. В конструкторе вызывается конструктор родительского класса `Model` с клонированным шаблоном и объектом событий.
 
 #### Поля
 `titleElement` - элемент заголовка успешного заказа.
@@ -247,19 +247,36 @@ yarn build
 #### Методы:
 `total` - устанавливает общую сумму заказа, отображая ее в описании успешного заказа.
 
+### 9. Класс CardModel
+Расширяет абстрактный класс `Model` и представляет компонент карточки товара на странице. 
+
+#### Конструктор
+Принимает HTML-шаблон, объект событий и, опционально, действие для карточки. В конструкторе вызывается конструктор родительского класса `Model` с клонированным шаблоном и объектом событий.
+
+#### Поля
+`id` - идентификатор карточки.
+`categoryElement` - элемент категории карточки.
+`titleElement` - элемент заголовка карточки.
+`imageElement` - элемент изображения карточки.
+`priceElement` - элемент цены карточки.
+`descriptionElement` - элемент описания карточки.
+`buttonElement` - кнопка действия (добавить/удалить) карточки из корзины.
+`itemIndexElement` - элемент индекса карточки в корзине.
+
+#### Методы:
+`category` устанавливает категорию карточки и применяет соответствующий класс стиля.
+`title` устанливает заголовок карточки.
+`image` устанавливает изображение карточки.
+`price` устанавливает цену карточки.
+`description` устанавливает описание карточки.
+`isInBasket` устанавливает состояние карточки в корзине (добавлена/удалена).
+`index` устанавливает индекс карточки в корзине.
 
 
-
-
-
-
-
-
-
-Интерфейс `IProduct` нужен для описания товара
+### Основные интерфейсы/ типы:
 
 ```typescript
-interface IProduct {
+export interface IProduct {
 	id: string;
 	description: string;
 	image: string;
@@ -267,89 +284,59 @@ interface IProduct {
 	category: string;
 	price: number | null;
 }
-```
 
-Интерфейс `IAppState` необходим для описывания состояния приложения
-
-```typescript
-interface IAppState {
-	catalog: IProduct;
-	basket: string[];
-	preview: string | null;
-	order: IOrder | null;
+export interface ICard {
+	id: string;
+	title: string;
+	description: string;
+	category: string;
+	image: string;
+	price?: number;
+	isInBasket: boolean;
+	index: number;
 }
-```
 
-Интерфейс `IOrderForm` используется для описания формы заказа
-
-```typescript
-interface IOrderForm {
+export interface IOrder {
+	payment: string;
 	email: string;
 	phone: string;
 	address: string;
-	payment: TOrderPayment;
-}
-```
-
-Интерфейс `IOrder` расширяет `IOrderForm`
-```typescript
-interface IOrder extends IOrderForm {
-	items: string[];
 	total: number;
+	items: string[];
 }
-```
 
-Для описания интерфейса результата заказа используется `IOrderResult`
+export interface IShopApi {
+	getAllProducts(): Promise<IProduct[]>;
+	getProductById(id: string): Promise<IProduct>;
+	addOrder(order: IOrder): Promise<ISuccessOrder>;
+}
 
-```typescript
-interface IOrderResult {
+export interface ISuccessOrder {
 	id: string;
 	total: number;
 }
+
+export interface IBasket {
+	price: number;
+	cards: HTMLElement[];
+}
+
+export interface IBasketOrder {
+	payment: TOrderPayment;
+	address: string;
+}
+
+export interface IBasketContacts {
+	email: string;
+	phone: string;
+}
+
+export interface ICardAction {
+	onClick: (event: MouseEvent) => void;
+}
+
+export type TOrderPayment = 'cash' | 'card';
 ```
-
-Для определения возможных способов оплаты заказа используется тип `TOrderPayment`.
-
-```typescript
-type TOrderPayment = 'cash' | 'card';
-```
-
-Тип использующийся для валидации формы заказа `FormErrors`
-
-```typescript
-type FormErrors = Partial<Record<keyof IOrder, string>>;
-```
-
-Для описания элементов корзины используеся тип `IBasketItem`
-
-```typescript
-type IBasketItem = Pick<IProduct, 'id' | 'title' | 'price'>;
-```
-
-```typescript
-type ApiPostMethods = 'POST' | 'PUT' | 'DELETE'
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
