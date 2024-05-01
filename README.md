@@ -51,6 +51,7 @@ yarn build
 ### Базовый класс API
 
 Этот класс предоставляет базовые методы для работы с API и позволяет легко взаимодействовать с удаленным сервером, отправлять запросы и получать ответы, а также обрабатывать ошибки.
+
 #### Конструктор:
 Принимает базовый URL для API `baseUrl` и опциональные параметры `options` для настройки запросов.
 Устанавливает базовый URL и опции запроса.
@@ -60,47 +61,39 @@ yarn build
 `options: RequestInit` - объект с настройками для формирования запроса.
 
 #### Методы:
-`handleResponse`
-Обрабатывает ответы от сервера, разрешая Promise с данными или выбрасывая ошибку.
-`get`
-Выполняет GET-запрос к API по указанному URI.
-`post`
-Выполняет POST-запрос к API по указанному URI с переданными данными.
+`handleResponse`- обрабатывает ответы от сервера, разрешая Promise с данными или выбрасывая ошибку.
+`get` - выполняет GET-запрос к API по указанному URI.
+`post` - выполняет POST-запрос к API по указанному URI с переданными данными.
 
 ### Базовый класс EventEmitter
 
 Реализует управление событиями, включая добавление и удаление обработчиков событий, а также их активацию при наступлении событий.
 
-```typescript
-// Подписка на событие
-on<T extends object>(eventName: EventName, callback: (event: T) => void): void {}
+#### Конструктор:
+Создает экземпляр объекта `Map`
 
-// Отписка от события
-off(eventName: EventName, callback: Subscriber): void {}
+#### Методы:
+`on<T extends object>(eventName: EventName, callback: (event: T) => void): void` -устанавливает обработчик на событие.
+`off(eventName: EventName, callback: Subscriber): void` - снимает обработчик с события.
+`emit<T extends object>(eventName: string, data?: T): void` - инициирует событие с данными.
+`onAll(callback: (event: EmitterEvent) => void): void` - слушает все события.
+`offAll(): void` - сбрасывает все обработчики.
+`trigger<T extends object>(eventName: string, context?: Partial<T>): (event: object) => void` - создает коллбек триггер, генерирующий событие при вызове.
 
-// Подписка на все события
-onAll(callback: (event: EmitterEvent) => void): void {}
-
-// Отписка от всех событий
-offAll(): void {}
-
-// Уведомление подписчиков о наступлении события
-emit<T extends object>(eventName: string, data?: T): void {}
-
-// Делает коллбек триггером, генерирующим событие при вызове
-trigger<T extends object>(eventName: string, context?: Partial<T>): void {}
-
-```
 
 ### Базовый абстрактный класс Model
 
 Абстрактный класс для создания моделей данных с возможностью управления данными и оповещения других компонентов о изменениях в этих моделях.
 
-Имеет метод 
-```typescript
-// Уведомляет подписчиков об изменениях в модели и передает данные payload с помощью EventEmitter.
-emitChanges(event: string, payload?: object)
-```
+#### Конструктор:
+`container: HTMLElement` - элемент DOM, в который будет рендериться модель.
+`events: IEvents` - интерфейс для работы с событиями.
+
+#### Поля:
+`events: IEvents` - объект, являющимся брокером событий, поддерживает интерфейс IEvents.
+
+#### Методы:
+`render(obj: Partial<T>): HTMLElement` - принимает объект данных, объединяет его с текущей моделью и возвращает элемент DOM, к которому привязана модель.
 
 ##  Компоненты модели данных
 
