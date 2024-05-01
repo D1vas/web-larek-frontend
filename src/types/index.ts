@@ -43,14 +43,14 @@ export interface IBasket {
 	cards: HTMLElement[];
 }
 
-export interface IBasketOrder {
-	payment: TOrderPayment;
-	address: string;
-}
-
 export interface IBasketContacts {
 	email: string;
 	phone: string;
+}
+
+export interface IBasketOrder {
+	payment: TOrderPayment;
+	address: string;
 }
 
 export interface ICardAction {
