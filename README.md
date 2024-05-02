@@ -268,13 +268,13 @@ yarn build
 
 #### Методы:
 
-- `category(category: string)` - устанавливает категорию карточки и применяет соответствующий класс стиля.
-- `title(title: string)` - устанавливает заголовок карточки.
-- `image(imageUrl: string)` - устанавливает изображение карточки.
-- `price(price: number)` - устанавливает цену карточки.
-- `description(description: string)` - устанавливает описание карточки.
-- `isInBasket(isInBasket: boolean)` - устанавливает состояние карточки в корзине (добавлена/удалена).
-- `index(index: number)` - устанавливает индекс карточки в корзине.
+- `set category(category: string)` - устанавливает категорию карточки и применяет соответствующий класс стиля.
+- `set title(title: string)` - устанавливает заголовок карточки.
+- `set image(imageUrl: string)` - устанавливает изображение карточки.
+- `set price(price: number)` - устанавливает цену карточки.
+- `set description(description: string)` - устанавливает описание карточки.
+- `set isInBasket(isInBasket: boolean)` - устанавливает состояние карточки в корзине (добавлена/удалена).
+- `set index(index: number)` - устанавливает индекс карточки в корзине.
 
 
 ### Основные интерфейсы/ типы:
