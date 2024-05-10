@@ -14,7 +14,7 @@ export interface ICard {
 	category: string;
 	image: string;
 	price?: number;
-	isInBasket: boolean;
+	basketState: boolean;
 	index: number;
 }
 

@@ -1,5 +1,5 @@
 import { ViewComponent } from './base/ViewComponent '
-import { IEvents } from './base/events';
+import { IEvents } from './base/Events';
 import { cloneTemplate, ensureElement } from '../utils/utils';
 import { ISuccessOrder } from '../types';
 

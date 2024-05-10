@@ -1,5 +1,5 @@
 import { IBasketContacts, IBasketOrder, IOrder, IProduct } from '../types';
-import { IEvents } from './base/events';
+import { IEvents } from './base/Events';
 
 export class Storage {
 	protected _basket: string[];
@@ -58,14 +58,14 @@ export class Storage {
 	}
 
 	addProductToBasket(product: IProduct): void {
-		if (this.isInBasket(product.id))
+		if (this.basketState(product.id))
 			return;
 
 		this.basket = [...this.basket, product.id];
 	}
 
 	removeProductFromBasket(productId: string): void {
-		if (!this.isInBasket(productId))
+		if (!this.basketState(productId))
 			return;
 
 		const product = this.getProductById(productId);
@@ -73,10 +73,10 @@ export class Storage {
 	}
 
 	getProductsInBasket(): IProduct[] {
-		return this.products.filter((item) => this.isInBasket(item.id));
+		return this.products.filter((item) => this.basketState(item.id));
 	}
 
-	isInBasket(productId: string): boolean {
+	basketState(productId: string): boolean {
 		return this.basket.includes(productId);
 	}
 

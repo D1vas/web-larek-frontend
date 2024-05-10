@@ -9,7 +9,7 @@ import { Storage } from './components/AppData';
 import { Contacts } from './components/Contacts';
 import { Success } from './components/SuccessOrder';
 import { CDN_URL, API_URL } from './utils/constants';
-import { EventEmitter } from './components/base/events';
+import { EventEmitter } from './components/base/Events';
 import { cloneTemplate, ensureElement } from './utils/utils';
 import { IProduct, IBasketContacts, IBasketOrder } from './types';
 
@@ -61,9 +61,14 @@ const contactsElement = new Contacts(
 	events
 );
 
-api.getAllProducts().then((data) => {
-	storage.products = data;
-});
+api
+	.getAllProducts()
+	.then((data) => {
+		storage.products = data;
+	})
+	.catch((error) => {
+		console.error('Error:', error);
+	});
 
 function renderCards(products: IProduct[]) {
 	page.productCards = products.map((product) =>
@@ -90,7 +95,7 @@ function renderPreview(product: IProduct) {
 			image: product.image,
 			price: product.price,
 			description: product.description,
-			isInBasket: storage.isInBasket(product.id),
+			basketState: storage.basketState(product.id),
 		})
 	);
 }
@@ -145,7 +150,7 @@ events.on('basket:submit', () => {
 });
 
 events.on('preview:submit', (product: IProduct) => {
-	if (storage.isInBasket(product.id)) {
+	if (storage.basketState(product.id)) {
 		storage.removeProductFromBasket(product.id);
 		renderPreview(product);
 	} else {
