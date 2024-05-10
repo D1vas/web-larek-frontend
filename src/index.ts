@@ -9,7 +9,7 @@ import { Storage } from './components/AppData';
 import { Contacts } from './components/Contacts';
 import { Success } from './components/SuccessOrder';
 import { CDN_URL, API_URL } from './utils/constants';
-import { EventEmitter } from './components/base/Events';
+import { EventEmitter } from './components/base/pEvents';
 import { cloneTemplate, ensureElement } from './utils/utils';
 import { IProduct, IBasketContacts, IBasketOrder } from './types';
 

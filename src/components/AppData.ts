@@ -1,5 +1,5 @@
 import { IBasketContacts, IBasketOrder, IOrder, IProduct } from '../types';
-import { IEvents } from './base/Events';
+import { IEvents } from './base/pEvents';
 
 export class Storage {
 	protected _basket: string[];

@@ -1,4 +1,4 @@
-import { IEvents } from './Events';
+import { IEvents } from './pEvents';
 
 export abstract class ViewComponent <T> {
 	protected constructor(protected container: HTMLElement, protected events: IEvents) {
