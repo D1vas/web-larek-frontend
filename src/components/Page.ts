@@ -1,5 +1,5 @@
 import { ensureElement } from '../utils/utils';
-import { IEvents } from './base/pEvents';
+import { IEvents } from './base/Events';
 
 export class Page {
 	protected _productCards: HTMLDivElement;
